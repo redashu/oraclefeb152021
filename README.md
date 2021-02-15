@@ -364,4 +364,38 @@ docker  build  -t  ashujava:v1  .
  
 ```
 
+## PYthon based image build 
 
+```
+❯ ls
+README.md       ashu.dockerfile while.py
+❯ docker build  -t  ashupy:v1  .
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /Users/fire/Desktop/mycode/pythonLang/Dockerfile: no such file or directory
+❯ 
+❯ docker build  -t  ashupy:v1  -f  ashu.dockerfile  .
+Sending build context to Docker daemon  63.49kB
+Step 1/6 : FROM python
+latest: Pulling from library/python
+0ecb575e629c: Extracting [========================================>          ]  40.37MB/50.4MB
+7467d1831b69: Download complete 
+feab2c490a3c: Download complete 
+f15a0f46f8c3: Download complete 
+937782447ff6: Downloading [==============================>                    ]  118.9MB/192.3MB
+e78b7aaaab2c: Download complete 
+
+```
+
+## python container 
+
+```
+7649  docker  images  |   grep -i oracle
+ 7650  docker build  -t  ashupy:v2  -f  ashu.dockerfile  .   
+ 7651  docker  images  |   grep -i ashu
+ 7652  history
+ 7653  docker build  -t  ashupy:v3  -f  ashu.dockerfile  .   
+ 7654  docker  images  |   grep -i ashu
+ 7655  docker  ps
+ 7656  docker  logs -f  ashuc5
+ 
+ ```
+ 
