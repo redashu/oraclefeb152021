@@ -332,4 +332,36 @@ lo        Link encap:Local Loopback
  ```
  
  
+ ## CUstom docker images building 
  
+ <img src="di.png">
+ 
+ ## Building docker images
+ 
+ ```
+ ❯ ls
+Dockerfile README.md  test.java
+
+░▒▓ ~/Desktop/mycode/javaLang  main ?1 ································································· 03:49:34 PM ▓▒░─╮
+❯ docker  build  -t  ashujava:v1  .                                                                                        ─╯
+
+
+```
+
+# Docker build 
+
+## First image building 
+
+```
+docker  build  -t  ashujava:v1  .
+
+```
+
+## creating containers 
+
+```
+ docker  run  -itd  --name ashuc3  ashujava:v1   
+ 
+```
+
+
