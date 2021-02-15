@@ -399,3 +399,25 @@ e78b7aaaab2c: Download complete
  
  ```
  
+## FROm running container to image 
+
+```
+root@617e3bf7eb4d:/code# exit
+❯ docker  ps
+CONTAINER ID   IMAGE         COMMAND             CREATED          STATUS          PORTS     NAMES
+038e601e02d1   sunpyth:v1    "python while.py"   16 minutes ago   Up 16 minutes             sunpytc1
+38ebdea03b99   vpasampy:v1   "python while.py"   17 minutes ago   Up 17 minutes             vpasampy
+73aeb02ed058   ashishpy:v1   "python while.py"   17 minutes ago   Up 17 minutes             ashishc4
+ce84aa404cb9   anaupy:v1     "python while.py"   18 minutes ago   Up 18 minutes             anauc2
+617e3bf7eb4d   ashupy:v1     "python while.py"   18 minutes ago   Up 18 minutes             ashuc5
+❯ docker  commit -m "myimg"  617e3bf7eb4d    ashupy:v9
+sha256:280e6b621dcf0b1b0be87229669dc96a5f361c001b3578918029040d5e79b1b1
+❯ docker  images   |   grep -i ashu
+ashupy                   v9        280e6b621dcf   8 seconds ago        938MB
+ashupy                   v3        7f5732537930   14 minutes ago       347MB
+ashupy                   v2        4e6d27852883   15 minutes ago       346MB
+ashupy                   v1        cdf5712a79bb   20 minutes ago       885MB
+ashujava                 v1        cb1dfad1522e   About an hour ago    643MB
+
+```
+
