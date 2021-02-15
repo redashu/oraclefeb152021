@@ -210,3 +210,75 @@ default *           moby                Current DOCKER_HOST based configuration 
 ```
 
 
+## First container process understanding 
+
+<img src="pp.png">
+
+## creation & checking of containers 
+
+```
+7542  docker  run  --name  ashuc1   busybox   cal  
+ 7543  docker  ps
+ 7544  docker  ps -a
+ 7545  docker  run    busybox  ping google.com  
+ 7546  docker  ps
+ 7547  docker  ps -a
+ 7548  history
+ 7549  docker  ps -a
+❯ docker  run  --name ashuc2  -d  busybox  ping fb.com
+81217e31fe90dad2eb6057ec276f6abce59edf350e45ff283ead143d5f9f2bdc
+❯ docker  ps
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS         PORTS     NAMES
+81217e31fe90   busybox   "ping fb.com"       9 seconds ago   Up 7 seconds             ashuc2
+a18f5ff65fb9   busybox   "ping google.com"   2 minutes ago   Up 2 minutes             great_wescoff
+6339ae857ef2   busybox   "ping google.com"   2 minutes ago   Up 2 minutes             charming_kalam
+
+```
+
+
+## checking output of containers parent process
+
+```
+ 7553  docker  logs  ashuc2
+ 7554  docker  logs -f  ashuc2
+❯ docker  ps
+
+```
+
+## more container operations 
+
+```
+
+❯ docker  stop   ashuc2
+ashuc2
+
+
+====
+
+❯ docker  ps
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS         PORTS     NAMES
+ea7446e5abd2   busybox   "ping fb.com"       5 minutes ago   Up 1 second              rajic2
+81217e31fe90   busybox   "ping fb.com"       5 minutes ago   Up 3 seconds             ashuc2
+a18f5ff65fb9   busybox   "ping google.com"   8 minutes ago   Up 8 minutes             great_wescoff
+6339ae857ef2   busybox   "ping google.com"   8 minutes ago   Up 8 minutes             charming_kalam
+❯ docker  ps  -q
+ea7446e5abd2
+81217e31fe90
+a18f5ff65fb9
+6339ae857ef2
+❯ docker kill  $(docker  ps  -q)
+ea7446e5abd2
+81217e31fe90
+a18f5ff65fb9
+6339ae857ef2
+
+```
+
+
+## to start all possible containers 
+
+```
+ docker   start  $(docker  ps  -aq)
+ 
+```
+
