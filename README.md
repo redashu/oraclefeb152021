@@ -44,6 +44,10 @@ Resolving Dependencies
 
 ```
 
+## Note: INcase you don't have repo connected then follow that link 
+
+[docker install on linux host](https://docs.docker.com/engine/install/centos/)
+
 
 ## starting docker 
 
@@ -113,5 +117,96 @@ Server: Docker Engine - Community
 
 ```
 
+## docker client 
+
+<img src="dcli.png">
+
+## Simple docker architecture 
+
+<img src="darch.png">
+
+## Some docker. client request to docker engine (server)
+
+```
+ 7500  docker  search   mysql 
+ 7501  docker  search   jdk
+ 7502  docker  search  java
+ 7503  docker  search  dockerashu
+ 7504  docker  search  ashutoshh
+
+```
+
+
+## Docker pull 
+
+```
+❯ docker  pull   java
+Using default tag: latest
+latest: Pulling from library/java
+5040bd298390: Pull complete 
+fce5728aad85: Pull complete 
+76610ec20bf5: Pull complete 
+60170fec2151: Pull complete 
+e98f73de8f0d: Pull complete 
+11f7af24ed9c: Pull complete 
+49e2d6393f32: Pull complete 
+bb9cdec9c7f3: Pull complete 
+Digest: sha256:c1ff613e8ba25833d2e1940da0940c3824f03f802c449f3d1815a66b7f8c0e9d
+Status: Downloaded newer image for java:latest
+docker.io/library/java:latest
+❯ docker  images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+java         latest    d23bdf5b1b1b   4 years ago   643MB
+
+```
+
+
+## Docker client  to Remote docker engine connection 
+
+<img src="de.png">
+
+## IN custom / private linux host - you can enable tcp in docker engine 
+
+```
+[ec2-user@ip-172-31-69-94 ~]$ sudo -i
+[root@ip-172-31-69-94 ~]# cd  /etc/sysconfig/
+[root@ip-172-31-69-94 sysconfig]# ls
+acpid       clock     docker          init        modules          nfs            rpc-rquotad  run-parts  sysstat.ioconf
+atd         console   docker-storage  irqbalance  netconsole       raid-check     rpcbind      selinux
+authconfig  cpupower  grub            keyboard    network          rdisc          rsyncd       sshd
+chronyd     crond     i18n            man-db      network-scripts  readonly-root  rsyslog      sysstat
+[root@ip-172-31-69-94 sysconfig]# vim docker
+[root@ip-172-31-69-94 sysconfig]# cat  docker
+# The max number of open files for the daemon itself, and all
+# running containers.  The default value of 1048576 mirrors the value
+# used by the systemd service unit.
+DAEMON_MAXFILES=1048576
+
+# Additional startup options for the Docker daemon, for example:
+# OPTIONS="--ip-forward=true --iptables=true"
+# By default we limit the number of open files per container
+OPTIONS="--default-ulimit nofile=1024:4096  -H tcp://0.0.0.0:2375"
+
+# How many seconds the sysvinit script waits for the pidfile to appear
+# when starting the daemon.
+DAEMON_PIDFILE_TIMEOUT=10
+[root@ip-172-31-69-94 sysconfig]# systemctl daemon-reload 
+[root@ip-172-31-69-94 sysconfig]# systemctl restart docker 
+[root@ip-172-31-69-94 sysconfig]# netstat -nlpt    |   grep -i docker
+tcp6       0      0 :::2375                 :::*                    LISTEN      5904/dockerd 
+```
+
+## Docker client with context 
+
+<img src="context.png">
+
+## checking context on client machine 
+
+```
+❯ docker  context   ls
+NAME                TYPE                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+default *           moby                Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+
+```
 
 
