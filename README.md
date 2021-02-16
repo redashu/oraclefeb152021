@@ -46,6 +46,87 @@ d8ccb1b24024   10 days ago    /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
 
 ```
 
+# Webapps to docker images
+
+## html webapp using apache httpd with dockerfile
+
+<img src="httpd.png">
+
+## HTtpd web server Dockerfile
+
+```
+FROM oraclelinux:8.3
+MAINTAINER ashutoshh@linux.com
+RUN dnf install httpd -y
+# installing httpd web server free & OSS 
+COPY . /var/www/html/
+#  src  dest 
+EXPOSE 80   
+# to auto detect default port of httpd server 
+# incase user don't wanna define (Optional)
+CMD ["httpd","-DFOREGROUND"]
+# starting httpd web server using this script command 
+# systemd is not supported 
+
+```
+
+## .dockerignore content 
+
+```
+Dockerfile
+.dockerignore
+LICENSE
+*.md
+.git
+
+```
+
+## Image build process from different location 
+
+```
+docker build -t  ashuhttpd:febv1  ./Desktop/mycode/htmlwebapp 
+
+```
+
+## launching container
+
+```
+7715  docker  run -d --name ashucx1  -p  1122:80     ashuhttpd:febv1  
+ 7716  docker  ps
+❯ docker  ps
+CONTAINER ID   IMAGE               COMMAND                CREATED          STATUS          PORTS                  NAMES
+f262143355c6   rajihttpd:v1        "httpd -DFOREGROUND"   9 seconds ago    Up 7 seconds    0.0.0.0:9999->80/tcp   rajihttpd_c1
+c4549e66d436   vpasamhttpd:v1      "httpd -DFOREGROUND"   23 seconds ago   Up 21 seconds   0.0.0.0:1140->80/tcp   vpasamhttpd2
+22f40d32f6b7   ashuhttpd:febv1     "httpd -DFOREGROUND"   49 seconds ago   Up 47 seconds   0.0.0.0:7001->80/tcp   samv1
+2839d15823c3   anauhttpd:febv2     "httpd -DFOREGROUND"   2 minutes ago    Up 2 minutes    0.0.0.0:1234->80/tcp   anaucx1
+3b0ecaa923ae   ashishhttpd:febv1   "httpd -DFOREGROUND"   2 minutes ago    Up 2 minutes    0.0.0.0:1133->80/tcp   ashishcx
+19b9e183d180   naghttpd:v1         "httpd -DFOREGROUND"   2 minutes ago    Up 2 minutes    0.0.0.0:6011->80/tcp   nagweb
+77f4b672ec2e   ashuhttpd:febv1     "httpd -DFOREGROUND"   2 minutes ago    Up 2 minutes    0.0.0.0:1122->80/tcp   ashucx1
+
+```
+
+
+## Dockerfile with entrypoint 
+
+```
+FROM oraclelinux:8.3
+MAINTAINER ashutoshh@linux.com
+RUN dnf install httpd -y
+# installing httpd web server free & OSS 
+RUN rm -rf /var/cache/yum/
+# removing yum installer cache to optimize image size
+# make image light weight 
+COPY . /var/www/html/
+#  src  dest 
+EXPOSE 80   
+# to auto detect default port of httpd server 
+# incase user don't wanna define (Optional)
+ENTRYPOINT httpd, -DFOREGROUND
+# as last argument of container creation 
+# anything by user will be ignored 
+
+```
+
 
 
 
