@@ -231,5 +231,56 @@ CONTAINER ID   IMAGE     COMMAND         CREATED         STATUS         PORTS   
  
  ```
  
+## COntainer with static IP 
+
+```
+869  docker  run  --name yc1 -d  --network ashubr3     alpine ping fb.com 
+ 7870  docker  run  --name yc2 -d  --network ashubr3   --ip 10.1.1.100  alpine ping fb.com 
+ 
+```
+
+## Question 1 done
+
+```
+7875  docker  network create  helloracle
+ 7876  docker  run  -d --name ashuc1  --network helloracle  alpine  ping 127.0.0.1
+ 7877  docker  run  -d --name ashuc2  --network helloracle  alpine  ping 127.0.0.1
+ 7878  docker  exec -it ashuc1  sh 
+ 7879  docker  cp  ashuc1:/aa.txt   .
+ 7880  ls
+ 7881  docker  cp  aa.txt  ashuc2:/
+ 7882  docker  exec -it ashuc2 sh 
+ 
+ ```
+ 
+ ## more docker networking commands 
+ 
+ ```
+  7873  docker  run  --name yc3332 -d  --network ashubr2   --ip 172.19.0.56  alpine ping fb.com 
+ 7874  history
+ 7875  docker  network create  helloracle
+ 7876  docker  run  -d --name ashuc1  --network helloracle  alpine  ping 127.0.0.1
+ 7877  docker  run  -d --name ashuc2  --network helloracle  alpine  ping 127.0.0.1
+ 7878  docker  exec -it ashuc1  sh 
+ 7879  docker  cp  ashuc1:/aa.txt   .
+ 7880  ls
+ 7881  docker  cp  aa.txt  ashuc2:/
+ 7882  docker  exec -it ashuc2 sh 
+ 7883  history
+ 7884  docker network  ls
+ 7885  docker  rm $(docker  ps -aq) -f
+ 7886  docker run  -d --name x1  --network host alpine ping 127.0.0.1
+ 7887  docker run  -d --name x2  --network host alpine ping 127.0.0.1
+ 7888  docker  exec -it x1 sh 
+ 7889  docker  exec -it x2 sh 
+ 7890  history
+ 7891  docker network ls
+ 7892  docker  run  -d --name x3  -p 4455:80  nginx 
+ 7893  history
+ 7894  docker  rm $(docker  ps -aq) -f
+ 7895  docker network prune 
+ 7896  docker  network  ls
+
+```
 
 
