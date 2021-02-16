@@ -338,4 +338,74 @@ DAEMON_PIDFILE_TIMEOUT=10
 
 ```
 
+## storage command
+
+```
+ 57  rsync  -vap   /var/lib/docker/   /oracleDE/
+   58  systemctl restart docker 
+   
+```
+
+
+# Docker volume 
+
+<img src="dvol.png">
+
+
+## Docker volume  
+
+```
+[root@ip-172-31-69-94 ~]# docker  run  -it  --name x1  alpine  sh 
+
+/ # 
+/ # 
+/ # 
+/ # ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+/ # mkdir  hello 
+/ # cd  hello/
+/hello # ls
+/hello # echo  hii >a.txt 
+/hello # ls
+a.txt
+/hello # echo hello >b.txt
+/hello # ls
+a.txt  b.txt
+/hello # exit
+[root@ip-172-31-69-94 ~]# docker  rm  x1 
+x1
+[root@ip-172-31-69-94 ~]# docker  run  -it  --name x1  alpine  sh 
+/ # ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+/ # exit
+[root@ip-172-31-69-94 ~]# docker rm x1
+x1
+
+```
+
+## volume mount 
+
+```
+[root@ip-172-31-69-94 ~]# docker  run  -it  --name x2iii   -v  ashuvol1:/mnt/data:rw   alpine  sh 
+/ # ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+/ # cd  /mnt/data/
+/mnt/data # ls
+/mnt/data # mkdir  hello world
+/mnt/data # ls
+hello  world
+/mnt/data # 
+[root@ip-172-31-69-94 ~]# docker  rm  x2iiii
+Error: No such container: x2iiii
+[root@ip-172-31-69-94 ~]# docker  rm  x2iii
+x2iii
+[root@ip-172-31-69-94 ~]# 
+[root@ip-172-31-69-94 ~]# docker  run  -it  --name x2iii   -v  ashuvol1:/mnt/data:rw   alpine  sh 
+/ # cd /mnt/data/
+/mnt/data # ls
+hello  world
+/mnt/data # 
+
+
+```
 
