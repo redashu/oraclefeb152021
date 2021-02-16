@@ -127,6 +127,36 @@ ENTRYPOINT httpd, -DFOREGROUND
 
 ```
 
+## Image build & share 
+
+<img src="share.png">
+
+## image container registry 
+
+<img src="registry.png">
+
+# PUshing image on docker hub 
+
+```
+7758  docker login -u dockerashu
+ 7759  docker  images  
+ 7760  docker  tag  ashuhttpd:febv1    dockerashu/ashuhttpd:febv1  
+ 7761  history
+ 7762  docker push  dockerashu/ashuhttpd:febv1
+ 7763  docker logout 
+
+
+```
+
+## Pushing image to OCR 
+
+```
+ 7781  docker   tag   ashuhttpd:febv1     phx.ocir.io/axmbtg8judkl/ashuhttpd:febv1  
+ 7782  docker login  phx.ocir.io  -u  axmbtg8judkl/learntechbyme@gmail.com  
+ 7783  docker push phx.ocir.io/axmbtg8judkl/ashuhttpd:febv1  
+ 7784  docker logout   phx.ocir.io 
+
+```
 
 
 
