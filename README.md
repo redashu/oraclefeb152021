@@ -157,6 +157,79 @@ ENTRYPOINT httpd, -DFOREGROUND
  7784  docker logout   phx.ocir.io 
 
 ```
+## Docker build , run and push 
 
+<img src="dockerbrp.png">
+
+# Docker networking 
+
+<img src="setup1.png">
+
+
+## NAT & port forwarding 
+
+<img src="natp.png">
+
+## listing 
+
+```
+❯ docker   network  ls
+NETWORK ID     NAME      DRIVER    SCOPE
+7b1108bf4d72   bridge    bridge    local
+0cecd29f7ec2   host      host      local
+c891d3c2e465   none      null      local
+❯ docker  ps
+CONTAINER ID   IMAGE     COMMAND         CREATED         STATUS         PORTS     NAMES
+447ac1cd66a6   alpine    "ping fb.com"   4 minutes ago   Up 4 minutes             x2
+7f38a21bf6cb   alpine    "ping fb.com"   4 minutes ago   Up 4 minutes             x1
+❯ docker  network inspect  bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "7b1108bf4d72ff3d9dc0e52f50efe6b01ecbbb1c6c806ba5ae54e249dec5422b",
+        "Created": "2021-02-15T11:04:05.136653075Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+
+
+```
+##
+
+```
+7844  docker   network  ls
+ 7845  docker   network  inspect  ashubr1
+ 7846  docker  network create  ashubr2
+ 7847  docker   network  inspect  ashubr2
+ 7848  history
+ 7849  docker   network  inspect  ashubr3  --subnet 10.1.1.0/24  
+ 7850  docker   network  create   ashubr3  --subnet 10.1.1.0/24  
+ 7851  docker   network  ls
+ 7852  history
+ 7853  docker  network inspect  ashubr3
+ 7854  history
+ 7855  docker   network  create   ashubr4  --subnet 10.1.1.0/24  
+ 7856  history
+ 7857  docker  run  --name xc1 -d  --network ashubr1   alpine ping fb.com 
+ 7858  docker  run  --name xc2 -d  --network ashubr1   alpine ping fb.com 
+ 7859  docker  ps
+ 7860  docker  exec -it xc1  sh 
+ 7861  history
+ 7862  docker  network ls
+ 7863  docker  network inspect  bridge
+ 
+ ```
+ 
 
 
