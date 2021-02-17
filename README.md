@@ -369,3 +369,38 @@ Oracle Linux 8 Application Stream (x86_64)      6.1
 
 ## Note : kube-proxy will be managing communication b/w or among the containers across minion node 
 
+
+
+# Minikube based k8s cluster 
+
+<img src="minikube.png">
+
+
+## MInikube installation on mac 
+
+```
+❯ brew install minikube
+
+
+----
+
+```
+
+##  Deployment of cluster using minikube 
+
+```
+❯ minikube start --driver=docker
+😄  minikube v1.17.1 on Darwin 11.2.1
+✨  Using the docker driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+🔥  Creating docker container (CPUs=2, Memory=1990MB) ...
+🐳  Preparing Kubernetes v1.20.2 on Docker 20.10.2 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+```
