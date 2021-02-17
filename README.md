@@ -422,3 +422,51 @@ Client Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.2", GitCom
 
 
 ```
+
+
+## Kubectl to connect. k8s clusetre 
+
+```
+❯ kubectl version
+Client Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.2", GitCommit:"faecb196815e248d3ecfb03c680a4507229c2a56", GitTreeState:"clean", BuildDate:"2021-01-13T13:28:09Z", GoVersion:"go1.15.5", Compiler:"gc", Platform:"darwin/amd64"}
+Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.2", GitCommit:"faecb196815e248d3ecfb03c680a4507229c2a56", GitTreeState:"clean", BuildDate:"2021-01-13T13:20:00Z", GoVersion:"go1.15.5", Compiler:"gc", Platform:"linux/amd64"}
+❯ kubectl  cluster-info
+Kubernetes control plane is running at https://127.0.0.1:55000
+KubeDNS is running at https://127.0.0.1:55000/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+```
+
+## Kubectl to connect remote k8s cluster
+
+```
+❯ cd  Desktop
+❯ ls
+DevopsSRE         PHD               backup            mycode            oracle15thfeb2021 oraclepublic.pub
+HelmDocs          admin.conf        minikube.png      or.token          oracleprivate.key techienest
+❯ 
+❯ kubectl  cluster-info
+Kubernetes control plane is running at https://127.0.0.1:55000
+KubeDNS is running at https://127.0.0.1:55000/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+❯ 
+❯ 
+❯ kubectl  cluster-info   --kubeconfig  admin.conf
+Kubernetes control plane is running at https://34.198.161.17:6443
+KubeDNS is running at https://34.198.161.17:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+❯ 
+❯ kubectl   get  nodes
+NAME       STATUS   ROLES                  AGE   VERSION
+minikube   Ready    control-plane,master   29m   v1.20.2
+❯ kubectl   get  nodes  --kubeconfig  admin.conf
+NAME          STATUS   ROLES                  AGE     VERSION
+k8s-master    Ready    control-plane,master   5d17h   v1.20.2
+k8s-minion1   Ready    <none>                 5d17h   v1.20.2
+k8s-minion2   Ready    <none>                 5d17h   v1.20.2
+k8s-minion3   Ready    <none>                 5d17h   v1.20.2
+
+```
