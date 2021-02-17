@@ -404,3 +404,21 @@ Oracle Linux 8 Application Stream (x86_64)      6.1
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 
 ```
+
+
+## Install kubectl on Mac 
+
+```
+❯ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   161  100   161    0     0    489      0 --:--:-- --:--:-- --:--:--   489
+100 44.0M  100 44.0M    0     0  8390k      0  0:00:05  0:00:05 --:--:-- 9915k
+❯ chmod +x ./kubectl
+❯ sudo mv ./kubectl /usr/local/bin/kubectl
+❯ kubectl   version  --client
+Client Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.2", GitCommit:"faecb196815e248d3ecfb03c680a4507229c2a56", GitTreeState:"clean", BuildDate:"2021-01-13T13:28:09Z", GoVersion:"go1.15.5", Compiler:"gc", Platform:"darwin/amd64"}
+
+
+
+```
