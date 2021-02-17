@@ -166,3 +166,164 @@ CONTAINER ID   IMAGE                 COMMAND        CREATED         STATUS      
 
 <img src="compose.png">
 
+# Docker compose install 
+
+[compose install](https://docs.docker.com/compose/install/)
+
+
+## checking compose installation 
+
+```
+❯ docker-compose -v
+docker-compose version 1.27.4, build 40524192
+
+
+```
+
+## compose file version 
+
+<img src="fversion.png">
+
+## Compose example 1
+
+```
+version: '3.8' # most stable version of compose file
+services: # to define your single or multiple application
+ ashuapp1: # name of my app
+  image: alpine
+  container_name: ashucc1
+  command: ping 127.0.0.1 
+
+```
+
+## compose commands 
+
+```
+7982  docker-compose up  -d 
+ 7983  docker-compose ps
+ 7984  docker-compose  stop
+ 7985  docker-compose ps
+ 7986  docker-compose -v
+ 7987  history
+ 7988  docker-compose ps
+ 7989  docker-compose start
+ 7990  docker-compose kill
+ 7991  docker-compose ps
+ 7992  docker-compose start
+ 7993  docker compose  ps
+ 7994  docker-compose ps
+ 7995  history
+ 7996  docker-compose
+❯ docker-compose down
+Stopping ashucc1 ... done
+Removing ashucc1 ... done
+Removing network example1_default
+
+```
+
+## sample example 
+
+```
+❯ ls
+docker-compose.yaml
+❯ docker-compose up -d
+Creating network "example1_default" with the default driver
+Creating ashucc1 ... done
+❯ docker-compose ps
+ Name        Command       State   Ports
+----------------------------------------
+ashucc1   ping 127.0.0.1   Up           
+❯ docker-compose logs
+Attaching to ashucc1
+ashucc1     | PING 127.0.0.1 (127.0.0.1): 56 data bytes
+ashucc1     | 64 bytes from 127.0.0.1: seq=0 ttl=64 time=0.111 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=1 ttl=64 time=0.158 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=2 ttl=64 time=0.171 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=3 ttl=64 time=0.137 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=4 ttl=64 time=0.119 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=5 ttl=64 time=0.146 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=6 ttl=64 time=0.149 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=7 ttl=64 time=0.179 ms
+❯ docker-compose logs -f
+Attaching to ashucc1
+ashucc1     | PING 127.0.0.1 (127.0.0.1): 56 data bytes
+ashucc1     | 64 bytes from 127.0.0.1: seq=0 ttl=64 time=0.111 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=1 ttl=64 time=0.158 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=2 ttl=64 time=0.171 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=3 ttl=64 time=0.137 ms
+ashucc1     | 64 bytes from 127.0.0.1: seq=4 tt
+
+```
+
+## compsoe example 2
+
+```
+version: '3.8' # most stable version of compose file
+services: # to define your single or multiple application
+ ashuapp1: # name of my app
+  image: alpine
+  container_name: ashucc1
+  command: ping 127.0.0.1 
+
+ ashuapp2: # app 2 
+  image: dockerashu/ashuhttpd:febv1 
+  container_name: ashucc22
+  ports:
+   - "2244:80"
+ 
+
+# docker  run  -d --name ashucc22 -p 2244:80 dockerashu/ashuhttpd:febv1
+
+```
+
+## Example 3
+
+```
+version: '3.8'
+services:
+  ashubuildrun1: 
+    image: mywebapp:v1 # image that i wanna build
+    build: . # location of Dockerfile 
+    container_name: ashuxc44 
+    ports:
+      - "9988:80"
+
+# note :- compose -- Build & run in case of Docker thing 
+
+```
+
+## running compose 
+
+```
+❯ ls
+example1   htmlwebapp javaLang   pythonLang
+❯ ls  htmlwebapp
+CODE_OF_CONDUCT.md LICENSE            ashucompose.yaml   index.html
+Dockerfile         README.md          images             styles
+❯ cd htmlwebapp
+❯ ls
+CODE_OF_CONDUCT.md LICENSE            ashucompose.yaml   index.html
+Dockerfile         README.md          images             styles
+❯ docker-compose up -d
+ERROR: 
+        Can't find a suitable configuration file in this directory or any
+        parent. Are you in the right directory?
+
+        Supported filenames: docker-compose.yml, docker-compose.yaml
+        
+❯ docker-compose -f  ashucompose.yaml  up  -d
+Creating network "htmlwebapp_default" with the default driver
+Building ashubuildrun1
+Step 1/8 : FROM oraclelinux:8.3
+ ---> d8ccb1b24024
+Step 2/8 : MAINTAINER ashutoshh@linux.com
+ ---> Running in 502b2064e4d7
+Removing intermediate container 502b2064e4d7
+ ---> dfe530967762
+Step 3/8 : RUN dnf install httpd -y
+ ---> Running in d6cc1cb8f573
+Oracle Linux 8 BaseOS Latest (x86_64)           5.5 MB/s |  29 MB     00:05    
+Oracle Linux 8 Application Stream (x86_64)      6.1 
+
+```
+
