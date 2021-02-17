@@ -470,3 +470,115 @@ k8s-minion2   Ready    <none>                 5d17h   v1.20.2
 k8s-minion3   Ready    <none>                 5d17h   v1.20.2
 
 ```
+
+
+## More ways to connect
+
+```
+❯ kubectl  get   nodes   --kubeconfig  admin.conf
+NAME          STATUS   ROLES                  AGE     VERSION
+k8s-master    Ready    control-plane,master   5d17h   v1.20.2
+k8s-minion1   Ready    <none>                 5d17h   v1.20.2
+k8s-minion2   Ready    <none>                 5d17h   v1.20.2
+k8s-minion3   Ready    <none>                 5d17h   v1.20.2
+❯ 
+❯ export  KUBECONFIG=./admin.conf
+❯ 
+❯ kubectl  get   nodes
+NAME          STATUS   ROLES                  AGE     VERSION
+k8s-master    Ready    control-plane,master   5d17h   v1.20.2
+k8s-minion1   Ready    <none>                 5d17h   v1.20.2
+k8s-minion2   Ready    <none>                 5d17h   v1.20.2
+k8s-minion3   Ready    <none>                 5d17h   v1.20.2
+❯ 
+
+```
+
+## Understanding kubernetes. POds 
+
+<img src="pods.png">
+
+## compose vs pod file comparasion 
+
+<img src="compod.png">
+
+
+## First pod 
+
+```
+apiVersion: v1 # apiserver version for Pod creation
+kind: Pod  # request to handle POd 
+metadata:  # info about POd 
+ name: ashupod-1 # name of POD 
+spec: # info about app like container  / storage / security etc..
+ containers:
+ - image: nginx  # image from Docker hub 
+   name: ashuc1 # name of container 
+   ports: # default application port 
+   - containerPort: 80
+```
+
+
+## Deployment of PODs
+
+```
+❯  export  KUBECONFIG=/Users/fire/Desktop/admin.conf
+❯ 
+❯ 
+❯ kubectl  apply  -f  ashupod1.yaml  --dry-run=client
+pod/ashupod-1 created (dry run)
+❯ 
+❯ kubectl  apply  -f  ashupod1.yaml
+pod/ashupod-1 created
+❯ kubectl   get  pods
+NAME        READY   STATUS    RESTARTS   AGE
+ashupod-1   1/1     Running   0          31s
+❯ kubectl   get  pods
+NAME        READY   STATUS    RESTARTS   AGE
+ashupod-1   1/1     Running   0          63s
+
+░▒▓ ~/Desktop/ashupods ··············································· kubernetes-admin@kubernetes ⎈  04:59:32 PM ▓▒░─╮
+❯ kubectl   get  pods                                                                                                   ─╯
+❯ kubectl   get  pods
+NAME         READY   STATUS             RESTARTS   AGE
+ashishpod1   1/1     Running            0          117s
+ashupod-1    1/1     Running            0          8m17s
+nag-1        1/1     Running            0          4m55s
+punyapod1    0/1     CrashLoopBackOff   5          5m16s
+rajipod-1    1/1     Running            0          5m48s
+sukupod-1    1/1     Running            0          3m
+testpod-v1   1/1     Running            0          5m13s
+❯ kubectl   get  po
+NAME         READY   STATUS             RESTARTS   AGE
+ashishpod1   1/1     Running            0          2m
+ashupod-1    1/1     Running            0          8m20s
+nag-1        1/1     Running            0          4m58s
+punyapod1    0/1     CrashLoopBackOff   5          5m19s
+rajipod-1    1/1     Running            0          5m51s
+sukupod-1    1/1     Running            0          3m3s
+testpod-v1   1/1     Running            0          5m16s
+❯ kubectl  get no
+NAME          STATUS   ROLES                  AGE     VERSION
+k8s-master    Ready    control-plane,master   5d18h   v1.20.2
+k8s-minion1   Ready    <none>                 5d18h   v1.20.2
+k8s-minion2   Ready    <none>                 5d18h   v1.20.2
+k8s-minion3   Ready    <none>                 5d18h   v1.20.2
+
+░▒▓ ~/Desktop/ashupods ··············································· kubernetes-admin@kubernetes ⎈  05:07:10 PM ▓▒░─╮
+❯ kubectl   get  pods                                                                                                   ─╯
+
+
+
+❯ kubectl   get  pods  -o wide
+NAME         READY   STATUS             RESTARTS   AGE     IP               NODE          NOMINATED NODE   READINESS GATES
+ashishpod1   1/1     Running            0          2m29s   192.168.54.66    k8s-minion1   <none>           <none>
+ashupod-1    1/1     Running            0          8m49s   192.168.54.69    k8s-minion1   <none>           <none>
+nag-1        1/1     Running            0          5m27s   192.168.54.70    k8s-minion1   <none>           <none>
+punyapod1    0/1     CrashLoopBackOff   5          5m48s   192.168.54.124   k8s-minion1   <none>           <none>
+rajipod-1    1/1     Running            0          6m20s   192.168.27.218   k8s-minion2   <none>           <none>
+sukupod-1    1/1     Running            0          3m32s   192.168.27.227   k8s-minion2   <none>           <none>
+testpod-v1   1/1     Running            0          5m45s   192.168.27.215   k8s-minion2   <none>           <none>
+
+
+```
+
