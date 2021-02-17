@@ -160,3 +160,9 @@ CONTAINER ID   IMAGE                 COMMAND        CREATED         STATUS      
 
 
 ```
+
+
+# WElcome to docker compose 
+
+<img src="compose.png">
+
