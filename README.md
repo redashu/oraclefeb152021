@@ -345,3 +345,27 @@ Oracle Linux 8 Application Stream (x86_64)      6.1
 <img src="k8sop.png">
 
 
+# Kubernetes ---
+
+## L1. arch 
+
+<img src="l1arch.png">
+
+## kube-apiserver. 
+
+<img src="apis.png">
+
+## kube-schedular. -- to FInd the best minion node for your application to deploy 
+
+<img src="sche.png">
+
+## Node controller - a controller for worker/ minion node
+
+<img src="nodec.png">
+
+## Minion Node. CNI  
+
+<img src="cni.png">
+
+## Note : kube-proxy will be managing communication b/w or among the containers across minion node 
+
