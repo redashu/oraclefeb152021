@@ -327,3 +327,21 @@ Oracle Linux 8 Application Stream (x86_64)      6.1
 
 ```
 
+## Docker engine based  app deployment problems
+
+<img src="appprob.png">
+
+
+## container orchestraion tools / tech 
+
+<img src="corch.png">
+
+## Info k8s
+
+<img src="k8sinfo.png">
+
+## K8s more options 
+
+<img src="k8sop.png">
+
+
