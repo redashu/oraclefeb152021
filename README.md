@@ -105,3 +105,58 @@ aliases.db                             mail.rc                                pr
 apache2                                m
 
 ```
+
+
+## sharing file as volume 
+
+```
+❯ docker  run  -it  --name check1  -v  /etc/passwd:/aa.txt:ro  alpine  sh
+/ # 
+/ # ls
+aa.txt  dev     home    media   opt     root    sbin    sys     usr
+bin     etc     lib     mnt     proc    run     srv     tmp     var
+/ # cat  aa.txt 
+##
+# User Database
+# 
+# Note that this file is consulted directly only when the system is running
+# in single-user mode.  At other times this information is provided by
+# Open Directory.
+#
+# See the opendirectoryd(8) man page for additional information about
+# Open Directory.
+
+
+```
+
+## Docker volume more options 
+
+<img src="cinc.png">
+
+## volume 
+
+```
+docker  run  -it  --name check2  -v  /etc/passwd:/aa.txt:ro -v  vol2:/mnt/go:rw     alpine  sh
+
+```
+# webui using volume as docker socket 
+
+<img src="socket.png">
+
+## running portianer 
+
+```
+❯ docker  run  -d --name  webui  -v  /var/run/docker.sock:/var/run/docker.sock  -p 1122:9000  portainer/portainer
+Unable to find image 'portainer/portainer:latest' locally
+latest: Pulling from portainer/portainer
+d1e017099d17: Pull complete 
+717377b83d5c: Pull complete 
+Digest: sha256:f8c2b0a9ca640edf508a8a0830cf1963a1e0d2fd9936a64104b3f658e120b868
+Status: Downloaded newer image for portainer/portainer:latest
+0529bef1d64026b9f119b185210102d785d09dec8aa8ff1204af95cee777dc56
+❯ docker  ps
+CONTAINER ID   IMAGE                 COMMAND        CREATED         STATUS         PORTS                    NAMES
+0529bef1d640   portainer/portainer   "/portainer"   5 seconds ago   Up 3 seconds   0.0.0.0:1122->9000/tcp   webui
+
+
+```
