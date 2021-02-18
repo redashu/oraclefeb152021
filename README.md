@@ -385,3 +385,44 @@ spec:
 
 ```
 
+## Deploy RC 
+
+```
+❯ kubectl apply -f  ashu-rc1.yaml
+replicationcontroller/ashu-rc111 created
+❯ kubectl  get  rc
+NAME         DESIRED   CURRENT   READY   AGE
+ashu-rc111   1         1         1       10s
+❯ kubectl  get  po
+NAME               READY   STATUS    RESTARTS   AGE
+ashu-rc111-c2vlm   1/1     Running   0          19s
+
+
+```
+
+## Expose to create service
+
+```
+❯ kubectl expose rc  ashu-rc111  --type NodePort  --port 1234 --target-port 80 --name ashusvc22
+service/ashusvc22 exposed
+❯ kubectl get  svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+ashusvc22    NodePort    10.107.0.207    <none>        1234:30469/TCP   31s
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          29m
+nagsvc22     NodePort    10.100.186.39   <none>        1234:31493/TCP   14s
+
+```
+
+## scaling pod using rc
+
+```
+❯ kubectl  scale  rc   ashu-rc111 --replicas=5
+replicationcontroller/ashu-rc111 scaled
+❯ kubectl  get   rc   ashu-rc111
+NAME         DESIRED   CURRENT   READY   AGE
+ashu-rc111   5         5         5       40m
+
+```
+
+
+
