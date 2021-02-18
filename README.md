@@ -276,7 +276,42 @@ lo        Link encap:Local Loopback
 
 <img src="stype.png">
 
+## NodePOrt service understanding 
 
+<img src="np.png">
+
+### Note: before creating service check pod labels 
+
+```
+8185  kubectl  get   po  ashupod2 --show-labels
+ 8186  kubectl  get   po  --show-labels
+❯ kubectl  get   po  ashupod2 --show-labels
+NAME       READY   STATUS    RESTARTS   AGE   LABELS
+ashupod2   1/1     Running   0          93m   run=ashupod2
+
+```
+
+## creating nodeport service 
+
+```
+ kubectl create  service  nodeport  ashusvc1  --tcp  1234:80  --dry-run=client -o yaml   >ashuservice1.yaml
+ 
+```
+
+## deploying service nodeport type 
+
+```
+❯ ls
+ashupod1.yaml      ashupod2.yaml      ashupod3.json      ashuservice1.yaml  sunilpod-aws1.yaml
+❯ kubectl  apply -f  ashuservice1.yaml
+service/ashusvc1 created
+❯ 
+❯ kubectl get  service
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+ashusvc1     NodePort    10.107.143.212   <none>        1234:32245/TCP   8s
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          19h
+
+```
 
 
 
