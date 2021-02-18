@@ -44,7 +44,9 @@ timeToStop: Nonexistent
 
 ### For windows powershell
 
-``` $env:KUBECONFIG="AbsPAth"
+
+``` 
+$env:KUBECONFIG="AbsPAth"
 
 ```
 
@@ -99,4 +101,167 @@ pod "testpod-v1" deleted
 
 
 ```
+
+## Pod auto generate 
+
+```
+❯ kubectl  run  ashupod2  --image=dockerashu/ashuhttpd:febv1  --port=80  --dry-run=client -o yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ashupod2
+  name: ashupod2
+spec:
+  containers:
+  - image: dockerashu/ashuhttpd:febv1
+    name: ashupod2
+    ports:
+    - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+```
+
+## pod in JSON format 
+
+```
+❯ kubectl  run  ashupod2  --image=dockerashu/ashuhttpd:febv1  --port=80  --dry-run=client -o json
+{
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "ashupod2",
+        "creationTimestamp": null,
+        "labels": {
+            "run": "ashupod2"
+        }
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "ashupod2",
+                "image": "dockerashu/ashuhttpd:febv1",
+                "ports": [
+                    {
+                        "containerPort": 80
+                    }
+                ],
+                "resources": {}
+            }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+    },
+    "status": {}
+}
+
+```
+
+## saving file using dry-run 
+
+```
+ kubectl  run  ashupod2  --image=dockerashu/ashuhttpd:febv1  --port=80  --dry-run=client -o yaml   >ashupod2.yaml
+❯ kubectl  run  ashupod2  --image=dockerashu/ashuhttpd:febv1  --port=80  --dry-run=client -o json  >ashupod3.json
+❯ ls
+ashupod1.yaml ashupod2.yaml ashupod3.json
+
+```
+
+## Deploying pod 
+
+```
+❯ ls
+ashupod1.yaml ashupod2.yaml ashupod3.json
+❯ kubectl  apply -f  ashupod2.yaml
+pod/ashupod2 created
+❯ kubectl  get  pods
+NAME       READY   STATUS              RESTARTS   AGE
+ashupod2   0/1     ContainerCreating   0          6s
+nag-1      1/1     Running             0          15m
+❯ kubectl  get  pods
+NAME       READY   STATUS    RESTARTS   AGE
+ashupod2   1/1     Running   0          13s
+nag-1      1/1     Running   0          15m
+❯ kubectl  get  pods  -o wide
+NAME       READY   STATUS    RESTARTS   AGE   IP               NODE          NOMINATED NODE   READINESS GATES
+ashupod2   1/1     Running   0          19s   192.168.27.252   k8s-minion2   <none>           <none>
+nag-1      1/1     Running   0          15m   192.168.54.110   k8s-minion1   <none>           <none>
+
+
+```
+
+## from k8s client machine access application 
+
+```
+❯ kubectl  port-forward  ashupod2   1199:80
+Forwarding from 127.0.0.1:1199 -> 80
+Forwarding from [::1]:1199 -> 80
+Handling connection for 1199
+Handling connection for 1199
+
+```
+
+## Pod with Custom parent process
+
+```
+apiVersion: v1 # apiserver version for Pod creation
+kind: Pod  # request to handle POd 
+metadata:  # info about POd 
+ name: ashupod-1 # name of POD 
+spec: # info about app like container  / storage / security etc..
+ containers:
+ - image: alpine  # image from Docker hub 
+   name: ashuc1 # name of container 
+   command: ["/bin/sh","-c","ping 127.0.0.1"] # custom parent process
+   
+ ```
+ 
+ ## some basic things 
+ 
+ ```
+  8173  kubectl replace -f  ashupod1.yaml  --force
+ 8174  kubectl get  pod  ashupod-1
+ 8175  kubectl logs  ashupod-1 
+ 8176  kubectl logs  -f ]ashupod-1 
+ 8177  kubectl logs  -f ashupod-1 
+❯ kubectl exec -it  ashupod-1  --  sh
+/ # 
+/ # 
+/ # cat  /etc/os-release 
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.13.2
+PRETTY_NAME="Alpine Linux v3.13"
+HOME_URL="https://alpinelinux.org/"
+BUG_REPORT_URL="https://bugs.alpinelinux.org/"
+/ # ifconfig 
+eth0      Link encap:Ethernet  HWaddr B6:E2:34:8D:7D:16  
+          inet addr:192.168.54.105  Bcast:192.168.54.105  Mask:255.255.255.255
+          UP BROADCAST RUNNING MULTICAST  MTU:8981  Metric:1
+          RX packets:5 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:446 (446.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:192 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:192 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:16128 (15.7 KiB)  TX bytes:16128 (15.7 KiB)
+
+/ # exit
+
+░▒▓ ~/Desktop/ashupods ··········
+
+```
+
+
+
+
 
