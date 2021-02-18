@@ -350,3 +350,38 @@ ashusvc222   NodePort    10.110.69.130   <none>        1234:32682/TCP   33s    r
 
 ```
 
+# Replication controller 
+
+<img src="rc.png">
+
+## clean up 
+
+```
+ kubectl delete  all --all
+ 
+ ```
+ 
+ # RC
+ 
+ ## Example 1
+ 
+ ```
+ apiVersion: v1
+kind: ReplicationController
+metadata:
+ name: ashu-rc111
+spec:
+ replicas: 1  # no of pods 
+ template: # it will use old yaml data 
+  metadata:
+   labels:
+    x: hellome
+  spec:
+   containers:
+   - image: dockerashu/ashuhttpd:febv1
+     name: ashuc44
+     ports:
+     - containerPort: 80
+
+```
+
