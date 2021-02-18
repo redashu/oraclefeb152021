@@ -466,3 +466,32 @@ EXPOSE 8080
 
 ```
 
+## history 
+
+```
+8377  kubectl apply -f   ashu-rc1.yaml
+ 8378  kubectl get  rc  
+ 8379  kubectl get  po
+ 8380  history
+ 8381  kubectl get  rc  
+ 8382  kubectl  expose rc  ashu-rc111 --type NodePort  --port 4433 --target-port 8080 
+ 8383  kubectl get  svc
+ 8384  history
+ 8385  kubectl get  svc
+ 8386  kubectl get  po 
+ 8387  history
+ 8388  kubectl get  po 
+ 8389  kubectl  get  svc
+ 8390  kubectl  describe  rc  ashishrc111
+ 8391  history
+ 8392  kubectl  describe  rc  ashishrc111
+ 8393  kubectl get  rc 
+ 8394  kubectl  expose rc  ashishrc111  --type NodePort  --port 8080 --name xc1
+ 8395  kubectl get svc 
+ 8396  history
+ 8397  kubectl  get  svc
+ 8398  kubectl edit svc ashishvc22  
+ 8399  kubectl  get  svc
+
+```
+
