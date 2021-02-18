@@ -314,5 +314,39 @@ kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          19h
 ```
 
 
+## Deleting services
 
+```
+❯ kubectl  delete  svc  ashusvc1
+service "ashusvc1" deleted
+❯ kubectl  delete  svc  --all
+service "anauvc1" deleted
+service "ashishsvc1" deleted
+service "hinasvc1" deleted
+service "jeeservice1" deleted
+service "kubernetes" deleted
+service "nagsvc1" deleted
+service "rajisvc1" deleted
+service "saisvc1" deleted
+service "spamarthic1" deleted
+
+```
+
+## another way to create servcie with automatic pod label matched
+
+```
+❯ kubectl  get  po  ashupod2
+NAME       READY   STATUS    RESTARTS   AGE
+ashupod2   1/1     Running   0          130m
+❯ kubectl  get  po  ashupod2   --show-labels
+NAME       READY   STATUS    RESTARTS   AGE    LABELS
+ashupod2   1/1     Running   0          130m   run=ashupod2
+❯ 
+❯ kubectl  expose  pod   ashupod2  --type NodePort --port 1234 --target-port 80 --name ashusvc222
+service/ashusvc222 exposed
+❯ kubectl get  svc  -o wide
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE    SELECTOR
+ashusvc222   NodePort    10.110.69.130   <none>        1234:32682/TCP   33s    run=ashupod2
+
+```
 
