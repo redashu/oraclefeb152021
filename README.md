@@ -261,6 +261,17 @@ lo        Link encap:Local Loopback
 
 ```
 
+# Service for static endpoint 
+
+## service with label concept 
+
+<img src="s1.png">
+
+----
+
+<img src="s2.png">
+
+
 
 
 
