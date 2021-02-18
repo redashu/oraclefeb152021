@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels: # label of service 
+    app: ashusvc1
+  name: ashusvc1 # service name 
+spec:
+  ports:
+  - name: 1234-80
+    port: 1234  # service port number 
+    protocol: TCP
+    targetPort: 80 # application port 
+  selector:  # THis is the Finder of POD using labels 
+    run: ashupod2 # make sure this must be label of your POD 
+  type: NodePort  # type of service 
+status:
+  loadBalancer: {}
