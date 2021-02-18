@@ -272,6 +272,11 @@ lo        Link encap:Local Loopback
 <img src="s2.png">
 
 
+## Sservice. type. in k8s 
+
+<img src="stype.png">
+
+
 
 
 
