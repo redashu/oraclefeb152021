@@ -499,6 +499,51 @@ kubectl  create  deployment ashudep33  --image=ashutoshh.azurecr.io/alpine:v1  -
 
 <img src="secret.png">
 
+## secret creation 
+
+```
+❯ kubectl   create  secret   docker-registry  ashusec1  --docker-server=ashutoshh.azurecr.io  --docker-username=ashutoshh --docker-password=Qc1qms7MhS  -n ashu-space
+secret/ashusec1 created
+❯ kubectl  get  secret
+NAME                  TYPE                                  DATA   AGE
+ashusec1              kubernetes.io/dockerconfigjson        1      72s
+default-token-mnlnd   kubernetes.io/service-account-token   3      4h32m
+
+```
+
+# Storage in k8s 
+
+## we are talking about VOlume only 
+
+<img src="vol.png">
+
+## VOLume creation process
+
+<img src="volcreate.png">
+
+## volume type 
+
+<img src="vtype.png">
+
+```
+❯ kubectl  get po
+NAME                      READY   STATUS    RESTARTS   AGE
+empvol-565b5bb969-r9ktr   1/1     Running   0          9s
+❯ kubectl  exec -it  empvol-565b5bb969-r9ktr   -- sh
+/ # cd  /mnt/data/
+/mnt/data # ls
+aa.txt
+/mnt/data # cat  aa.txt 
+HEY K8s
+HEY K8s
+HEY K8s
+HEY K8s
+HEY K8s
+
+```
+
+
+
 
 
 
