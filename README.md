@@ -486,6 +486,21 @@ oklb1      LoadBalancer   10.106.130.179   <pending>     8080:32201/TCP   2s
 
 ```
 
+## Deploy application from ACR
+
+```
+kubectl  create  deployment ashudep33  --image=ashutoshh.azurecr.io/alpine:v1  --dry-run=client -o yaml >acr.yml
+
+```
+
+
+## To deploy private image registry to kubernetes yOu need to Store credential of registry in SECRET 
+
+
+<img src="secret.png">
+
+
+
 
 
 
