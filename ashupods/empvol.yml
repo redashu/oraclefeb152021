@@ -15,7 +15,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: empvol
+        app: empvol # label of PODs 
     spec:
       volumes: #  FOr creating volume 
       - name: ashuvol1  # name of volume
@@ -37,3 +37,23 @@ spec:
         command: ["/bin/sh","-c","while true;do echo HEY K8s >>/mnt/data/aa.txt;sleep 3;done"]
         resources: {}
 status: {}
+# this is my service YAML 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashusxc1
+  name: ashusxc1
+spec:
+  ports:
+  - name: 1133-80
+    port: 1133
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: empvol  # label of POD 
+  type: NodePort
+status:
+  loadBalancer: {}
