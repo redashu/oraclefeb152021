@@ -158,4 +158,90 @@ config                 kubectl_autocompletion storage
 
 ```
 
+## Namespace 
+
+<img src="ns.png">
+
+## checking default namespaces in k8s
+
+```
+❯ kubectl  get   namespace
+NAME              STATUS   AGE
+default           Active   24m
+kube-node-lease   Active   24m
+kube-public       Active   24m
+kube-system       Active   24m
+
+```
+
+## more 
+
+```
+❯ kubectl  get   ns
+NAME              STATUS   AGE
+default           Active   24m
+kube-node-lease   Active   24m
+kube-public       Active   24m
+kube-system       Active   24m
+❯ kubectl  get  pods
+No resources found in default namespace.
+
+
+```
+
+
+### kube-system namespace 
+
+```
+❯ kubectl  get  pods   -n  kube-system
+NAME                                       READY   STATUS    RESTARTS   AGE
+calico-kube-controllers-66956989f4-gvkjk   1/1     Running   0          22m
+calico-node-mrppq                          1/1     Running   0          22m
+calico-node-qskk9                          1/1     Running   0          22m
+calico-node-qzpng                          1/1     Running   0          22m
+coredns-74ff55c5b-h9phl                    1/1     Running   0          26m
+coredns-74ff55c5b-rpwj2                    1/1     Running   0          26m
+etcd-k8smaster                             1/1     Running   0          26m
+kube-apiserver-k8smaster                   1/1     Running   0          26m
+kube-controller-manager-k8smaster          1/1     Running   0          26m
+kube-proxy-5qhrd                           1/1     Running   0          25m
+kube-proxy-99wcd                           1/1     Running   0          25m
+kube-proxy-cfpqd                           1/1     Running   0          26m
+kube-scheduler-k8smaster                   1/1     Running   0          26m
+
+```
+
+## creating custom namespace
+
+```
+❯ kubectl  create  namespace  ashu-space
+namespace/ashu-space created
+❯ kubectl  get   ns
+NAME              STATUS   AGE
+ashu-space        Active   4s
+default           Active   30m
+kube-node-lease   Active   30m
+kube-public       Active   30m
+kube-system       Active   30m
+
+```
+
+## changing default namespace 
+
+```
+ kubectl  config set-context  --current  --namespace=ashu-space
+Context "kubernetes-admin@kubernetes" modified.
+
+
+```
+
+## checking default namespace 
+
+```
+❯ kubectl  config get-contexts
+CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
+*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin   ashu-space
+
+```
+
 
