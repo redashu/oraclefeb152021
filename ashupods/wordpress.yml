@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashufrontapp
+  name: ashufrontapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ashufrontapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ashufrontapp
+    spec:
+      containers:
+      - image: wordpress:4.8-apache
+        name: wordpress
+        env: # to connect db will use env 
+        - name: WORDPRESS_DB_HOST
+          value: mysqldb # this is service name of MYSQL POD 
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+           secretKeyRef:
+            name: ashusec2
+            key: p 
+        resources: {}
+status: {}

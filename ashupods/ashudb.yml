@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mysqldb
+  name: mysqldb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysqldb
+    spec:
+      volumes:
+      - name: ashuvol3
+        nfs:
+         path: /data/ashudb
+         server: 172.31.85.174 
+      containers:
+      - image: mysql:5.6 
+        name: mysql
+        env: # to create / use env 
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+           secretKeyRef:
+            name: ashusec2 # name of secret 
+            key: p # key of secret  
+        volumeMounts:
+        - name: ashuvol3
+          mountPath: /var/lib/mysql # default database directory for MYSQL 
+        resources: {}
+status: {}

@@ -19,7 +19,7 @@ spec:
     spec:
       volumes: #  FOr creating volume 
       - name: ashuvol1  # name of volume
-        emptyDir: {} # type of volume 
+        emptyDir: {} # type of volume {} it will randomly create directory
       containers:
       - image: nginx # web app container 
         name: ashuc1

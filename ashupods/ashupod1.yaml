@@ -6,6 +6,8 @@ metadata:  # info about POd
  labels:
   x: ashuapp1  
 spec: # info about app like container  / storage / security etc..
+ imagePullSecret:
+ - name: ashusec1
  containers:
  - image: alpine  # image from Docker hub 
    name: ashuc1 # name of container 

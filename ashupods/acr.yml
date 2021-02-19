@@ -17,6 +17,8 @@ spec:
       labels:
         app: ashudep33
     spec:
+      imagePullSecrets:  # keyword to call secret 
+      - name: ashusec1 # calling secret from same namespace
       containers:
       - image: ashutoshh.azurecr.io/alpine:v1
         name: alpine
