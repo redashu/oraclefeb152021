@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashudep33
+  name: ashudep33
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ashudep33
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ashudep33
+    spec:
+      containers:
+      - image: ashutoshh.azurecr.io/alpine:v1
+        name: alpine
+        command: ["/bin/sh","-c","ping google.com"]
+        resources: {}
+status: {}

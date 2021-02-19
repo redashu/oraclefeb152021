@@ -1,0 +1,13 @@
+apiVersion: v1 # apiserver version for Pod creation
+kind: Pod  # request to handle POd 
+metadata:  # info about POd 
+ namespace: ashu-space  
+ name: ashupod-1 # name of POD
+ labels:
+  x: ashuapp1  
+spec: # info about app like container  / storage / security etc..
+ containers:
+ - image: alpine  # image from Docker hub 
+   name: ashuc1 # name of container 
+   command: ["/bin/sh","-c","ping 127.0.0.1"] # custom parent process
+   

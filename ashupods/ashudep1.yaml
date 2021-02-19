@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashujavawebapp1
+  name: ashujavawebapp1  # name of deployment 
+  namespace: ashu-space # if current namespace is not set 
+spec:
+  replicas: 1 # number of POD
+  selector:
+    matchLabels:
+      app: ashujavawebapp1
+  strategy: {}
+  template: # POD template section 
+    metadata:
+      creationTimestamp: null
+      labels: # label of my PODS 
+        app: ashujavawebapp1
+    spec:
+      containers:
+      - image: dockerashu/oraclejsp:v0001
+        name: oraclejsp
+        ports:  # optional bcz k8s can detect port automatically
+          - containerPort: 8080 
+        resources: {}
+status: {}
