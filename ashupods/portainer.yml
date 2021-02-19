@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashudep2
+  name: ashudep2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ashudep2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ashudep2
+    spec:
+      nodeName: minion2 # manual scheduling 
+      volumes:
+      - name: ashuvol2
+        hostPath:
+         path: /var/run/docker.sock
+         type: Socket 
+      containers:
+      - image: portainer/portainer
+        name: portainer
+        volumeMounts:
+        - name: ashuvol2
+          mountPath: /var/run/docker.sock
+        ports:
+        - containerPort: 9000
+        resources: {}
+status: {}
