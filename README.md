@@ -245,3 +245,62 @@ CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPAC
 ```
 
 
+## TOmcat dockerfile with JSP webapp
+
+```
+FROM tomcat
+# standard tomcat image from Docker hub
+MAINTAINER ashutoshh@linux.com
+WORKDIR  /usr/local/tomcat/webapps
+RUN mkdir ashuapp
+WORKDIR ashuapp
+COPY myapp  .
+RUN chmod 755 . -R
+# is optional to fix permission issues in JAVA backend file
+EXPOSE 8080
+
+# Note :- Here i am not gonna use CMD /Entrypoint 
+# so FROM image parent process will be inherited 
+
+```
+
+## BUilding images
+
+```
+ ls
+Dockerfile README.md  myapp
+❯ docker  build  -t   dockerashu/oraclejsp:v0001  .
+Sending build context to Docker daemon  102.9kB
+Step 1/8 : FROM tomcat
+ ---> bf4709e77b18
+Step 2/8 : MAINTAINER ashutoshh@linux.com
+ ---> Running in e3c13425cb92
+Removing intermediate container e3c13425cb92
+ ---> 97b05a2d2663
+Step 3/8 : WORKDIR  /usr/local/tomcat/webapps
+ ---> Running in b60394196d17
+Removing intermediate container b60394196d17
+ ---> eef6faf40c2c
+Step 4/8 : RUN mkdir ashuapp
+ ---> Running in 1e6c05156240
+Removing intermediate container 1e6c05156240
+ ---> 099c1094f899
+Step 5/8 : WORKDIR ashuapp
+ ---> Running in 25da672c9e23
+Removing intermediate container 25da672c9e23
+ ---> 858c19b2ad75
+Step 6/8 : COPY myapp  .
+ ---> f9a5b3c539b8
+Step 7/8 : RUN chmod 755 . -R
+ ---> Running in e6b52e54c61c
+Removing intermediate container e6b52e54c61c
+ ---> 5157fa38e655
+Step 8/8 : EXPOSE 8080
+ ---> Running in f561e28e7b7c
+Removing intermediate container f561e28e7b7c
+ ---> 5120d67d6607
+Successfully built 5120d67d6607
+Successfully tagged dockerashu/oraclejsp:v0001
+
+```
+
