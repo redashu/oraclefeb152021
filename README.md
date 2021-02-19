@@ -303,4 +303,177 @@ Successfully built 5120d67d6607
 Successfully tagged dockerashu/oraclejsp:v0001
 
 ```
+# Deployment in k8s
+
+<img src="dep.png">
+
+## More about deployment 
+
+<img src="depmore.png">
+
+## Deployment yaml 
+
+```
+kubectl  create  deployment  ashujavawebapp1  --image=dockerashu/oraclejsp:v0001  --dry-run=client -o yaml >ashudep1.yaml
+
+```
+
+### deploying 
+
+```
+❯ kubectl  config get-contexts
+CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
+*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin   ashu-space
+❯ kubectl apply -f  ashudep1.yaml
+deployment.apps/ashujavawebapp1 created
+❯ kubectl  get  deployments
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashujavawebapp1   0/1     1            0           13s
+❯ kubectl  get  deployment
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashujavawebapp1   1/1     1            1           18s
+❯ 
+❯ 
+❯ kubectl  get  deploy
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashujavawebapp1   1/1     1            1           22s
+
+
+```
+
+## Exposing deployment to create service 
+
+```
+❯ kubectl  get  deploy
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashujavawebapp1   1/1     1            1           2m50s
+❯ kubectl   get   rs
+NAME                        DESIRED   CURRENT   READY   AGE
+ashujavawebapp1-f8f7cbf77   1         1         1       2m58s
+❯ 
+❯ kubectl   get   po
+NAME                              READY   STATUS    RESTARTS   AGE
+ashujavawebapp1-f8f7cbf77-wd7k7   1/1     Running   0          3m4s
+❯ 
+❯ kubectl   expose deployment  ashujavawebapp1  --type NodePort  --port 8080  --name ashusvc1
+service/ashusvc1 exposed
+❯ kubectl  get  svc
+NAME       TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   NodePort   10.108.122.242   <none>        8080:31708/TCP   6s
+
+
+```
+
+## LOadbalancer service
+
+```
+❯ kubectl get deploy
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ashujavawebapp1   1/1     1            1           43m
+dd                1/1     1            1           12m
+❯ kubectl  expose deployment  dd  --type LoadBalancer  --port 80 --name oklb
+service/oklb exposed
+❯ kubectl  get  svc
+NAME       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   NodePort       10.108.122.242   <none>        8080:31708/TCP   40m
+dd         NodePort       10.104.157.6     <none>        80:30276/TCP     12m
+oklb       LoadBalancer   10.101.99.2      <pending>     80:31305/TCP     5s
+❯ kubectl  expose deployment  ashujavawebapp1  --type LoadBalancer  --port 8080 --name oklb1
+service/oklb1 exposed
+❯ kubectl  get  svc
+NAME       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   NodePort       10.108.122.242   <none>        8080:31708/TCP   40m
+dd         NodePort       10.104.157.6     <none>        80:30276/TCP     13m
+oklb       LoadBalancer   10.101.99.2      <pending>     80:31305/TCP     55s
+oklb1      LoadBalancer   10.106.130.179   <pending>     8080:32201/TCP   2s
+
+
+```
+
+
+## application in k8s with External Loadbalancer and External DNS 
+
+<img src="appdep.png">
+
+```
+ kubectl  scale  deployment  ashujavawebapp1  --replicas=3
+```
+
+## auto scale 
+
+```
+ kubectl autoscale deployment ashujavawebapp1 --min=2  --max=15 --cpu-percent=80
+ 
+```
+
+## history of deployment with docker build 
+
+```
+8477  kubectl  create  deployment  ashujavawebapp1  --image=dockerashu/oraclejsp:v0001  --dry-run=client -o yaml >ashudep1.yaml
+ 8478  history
+ 8479  ls
+ 8480  kubectl  config get-contexts 
+ 8481  kubectl apply -f  ashudep1.yaml 
+ 8482  kubectl  get  deployments 
+ 8483  kubectl  get  deployment
+ 8484  kubectl  get  deploy
+ 8485  kubectl   get   rs
+ 8486  kubectl   get   po
+ 8487  kubectl   expose deployment  ashujavawebapp1  --type NodePort  --port 8080  --name ashusvc1 
+ 8488  kubectl  get  svc
+ 8489  history
+ 8490  kubectl  get  svc
+ 8491  kubectl  get  po
+ 8492  kubectl exec -it  ashujavawebapp1-f8f7cbf77-wd7k7  -- bash
+ 8493  history
+ 8494  kubectl  get  svc
+ 8495  kubectl create deployment  --image=nginx 
+ 8496  kubectl create deployment  dd  --image=nginx 
+ 8497  kubectl  get  deploy
+ 8498  kubectl expose deployment dd  --type NodePort  --port 80 
+ 8499  kubectl get  svc
+ 8500  kubectl get deploy 
+ 8501  kubectl  expose deployment  dd  --type LoadBalancer  --port 80 --name oklb
+ 8502  kubectl  get  svc
+ 8503  kubectl  expose deployment  ashujavawebapp1  --type LoadBalancer  --port 8080 --name oklb1
+ 8504  kubectl  get  svc
+ 8505  kubectl  get deploy 
+ 8506  kubectl delete deploy dd  
+ 8507  kubectl  scale  deployment  ashujavawebapp1  --replicas=3
+ 8508  kubectl delete deploy dd  
+ 8509  kubectl  get deploy 
+ 8510  kubectl  get po
+ 8511  history
+ 8512  kubectl  get po
+ 8513  kubectl  autoscale
+ 8514  kubectl  autoscale  --help
+ 8515  history
+ 8516  kubectl autoscale deployment ashujavawebapp1 --min=2  --max=15 --cpu-percent=80
+ 8517  kubectl get  po
+ 8518  history
+ 8519  ls
+ 8520  cd  javawebapp
+ 8521  ls
+ 8522  cd  myapp
+ 8523  ls
+ 8524  vim index.html
+ 8525  ls
+ 8526  vim index.html
+ 8527  cat index.html
+ 8528  history
+ 8529  docker  build  -t   dockerashu/oraclejsp:v0002  . 
+ 8530  cd ..
+ 8531  docker  build  -t   dockerashu/oraclejsp:v0002  . 
+ 8532  docker push   dockerashu/oraclejsp:v0002  
+ 8533  history
+ 8534  kubectl  get  deployment 
+ 8535  kubectl  describe   deployment ashujavawebapp1 
+ 8536  kubectl  set  image  deployment  ashujavawebapp1  oraclejsp=dockerashu/oraclejsp:v0002
+ 8537  history
+ 8538  kubectl  describe   deployment ashujavawebapp1
+ 
+ ```
+ 
+ 
+
 
