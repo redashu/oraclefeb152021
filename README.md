@@ -474,6 +474,18 @@ oklb1      LoadBalancer   10.106.130.179   <pending>     8080:32201/TCP   2s
  
  ```
  
+ ## rollout 
  
+ ```
+ 41  kubectl  rollout  undo deployment ashujavawebapp1  
+ 8542  kubectl  rollout  history  deployment ashujavawebapp1  
+ 8543  kubectl  describe   deployment ashujavawebapp1 
+ 8544  history
+ 8545  kubectl  describe   deployment ashujavawebapp1 
+
+
+```
+
+
 
 
