@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: empvol
+  name: empvol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: empvol
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: empvol
+    spec:
+      volumes: #  FOr creating volume 
+      - name: ashuvol1  # name of volume
+        emptyDir: {} # type of volume 
+      containers:
+      - image: nginx # web app container 
+        name: ashuc1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: ashuvol1
+          mountPath: /usr/share/nginx/html # documentroot of nginx 
+          readOnly: yes
+      - image: alpine
+        name: alpine
+        volumeMounts: # FOR mounting above created volume 
+        - name: ashuvol1 
+          mountPath: /mnt/data # mounth path will be created automatically  
+        command: ["/bin/sh","-c","while true;do echo HEY K8s >>/mnt/data/aa.txt;sleep 3;done"]
+        resources: {}
+status: {}
