@@ -542,7 +542,33 @@ HEY K8s
 
 ```
 
+## multi container pod
 
+<img src="mcont.png">
+
+```
+8597  kubectl   create   deployment   empvol  --image=alpine  --dry-run=client -o yaml  >empvol.yml
+ 8598  ls
+ 8599  kubectl  apply -f  empvol.yml 
+ 8600  kubect  get  po 
+ 8601  kubectl  get po 
+ 8602  kubectl  exec -it  empvol-565b5bb969-r9ktr   -- sh 
+ 8603  history
+ 8604  ls
+ 8605  kubectl  replace  -f  empvol.yml --force 
+ 8606  kubectl  get  deploy 
+ 8607  kubectl  get  po
+ 8608  kubectl  create  service  nodeport  ashusxc1  --tcp 1133:80  --dry-run=client -o yaml  >>empvol.yml
+ 8609  history
+ 8610  kubectl  apply   -f  empvol.yml  
+ 8611  kubectl  get  svc 
+ 8612  history
+ 8613  kubectl get po --show-labels
+ 8614  kubectl  exec -it empvol-68c7686685-fnt6r  -c  ashuc1  -- bash 
+ 8615  kubectl  exec -it empvol-68c7686685-fnt6r  -c  alpine  -- sh 
+ 
+ ```
+ 
 
 
 
